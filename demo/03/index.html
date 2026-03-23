@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>3. 選択したHTML属性値をプレビュー色に反映するデモ</title>
+  <link href="../base.css" rel="stylesheet" />
+  <style>
+    .wrapper {
+      width: min(420px, calc(100% - 32px));
+      gap: 50px;
+    }
+
+    .control {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      color: #333;
+      font-size: 14px;
+    }
+
+    select {
+      padding: 12px 14px;
+      font: inherit;
+      font-weight: 700;
+      border: 2px solid #cfcfcf;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .preview {
+      padding: 24px;
+      border-radius: 14px;
+      color: #fff;
+      text-align: center;
+      background: attr(data-color type(<color>), #666);
+      transition: background-color 0.25s ease;
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="control">
+    <label for="theme">テーマカラー</label>
+    <select id="theme">
+      <option value="#ff6b6b">Red</option>
+      <option value="#4ecdc4">Green</option>
+      <option value="#1a73e8">Blue</option>
+      <option value="#6c5ce7">Purple</option>
+      <option value="#f59f00">Orange</option>
+    </select>
+  </div>
+
+  <div class="preview" id="preview" data-color="#ff6b6b">
+    Theme Preview
+  </div>
+</div>
+
+<script>
+  const select = document.querySelector("#theme");
+  const preview = document.querySelector("#preview");
+
+  const syncPreview = () => {
+    const selectedOption = select.selectedOptions[0];
+    preview.dataset.color = selectedOption.getAttribute("value");
+  };
+
+  syncPreview();
+  select.addEventListener("change", syncPreview);
+</script>
+</body>
+</html>

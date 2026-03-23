@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>1. カスタムデータ属性でサイズを切り替えるデモ</title>
+  <link href="../base.css" rel="stylesheet" />
+  <style>
+    .list {
+      display: grid;
+      place-items: center;
+      gap: 40px;
+    }
+
+    .item {
+      width: fit-content;
+      padding:
+        calc(attr(data-size type(<number>), 1) * 0.7rem)
+        calc(attr(data-size type(<number>), 1) * 1.2rem);
+      color: attr(data-textColor type(<color>), #fff);
+      font-size: calc(attr(data-size type(<number>), 1) * 1rem);
+      border-radius: calc(attr(data-size type(<number>), 1) * 0.5rem);
+      background: attr(data-color type(<color>), #666);
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="list">
+    <p class="item" data-color="#EBE9FC" data-textColor="#3223B3" data-size="0.8">ニュース！</p>
+    <p class="item" data-color="#7C71F6" data-size="1.2">ビッグニュース！</p>
+    <p class="item" data-color="#3223B3" data-size="1.6">特大ビッグニュース！</p>
+  </div>
+</div>
+<script>
+</script>
+</body>
+</html>
