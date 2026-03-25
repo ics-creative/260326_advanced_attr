@@ -3,73 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>3. 選択したHTML属性値をプレビュー色に反映するデモ</title>
+  <title>3. カスタムデータ属性で進捗バーの幅を変えるデモ</title>
   <link href="../base.css" rel="stylesheet" />
   <style>
     .wrapper {
-      width: min(420px, calc(100% - 32px));
-      gap: 50px;
-    }
+      gap: 40px;
+      width: 300px;
 
-    .control {
-      display: grid;
-      gap: 8px;
-    }
+      input[type="range"] {
+        width: 100%;
+      }
 
-    label {
-      color: #333;
-      font-size: 14px;
-    }
+      .bar {
+        height: 20px;
+        background: #555;
+        border-radius: 50px;
+        overflow: hidden;
 
-    select {
-      padding: 12px 14px;
-      font: inherit;
-      font-weight: 700;
-      border: 2px solid #cfcfcf;
-      border-radius: 10px;
-      background: #fff;
-    }
-
-    .preview {
-      padding: 24px;
-      border-radius: 14px;
-      color: #fff;
-      text-align: center;
-      background: attr(data-color type(<color>), #666);
-      transition: background-color 0.25s ease;
+        &::before {
+          content: "";
+          display: block;
+          height: 100%;
+          width: attr(data-value %);
+          background: #7C71F6;
+          transition: width 0.3s;
+        }
+      }
     }
   </style>
 </head>
 
 <body>
 <div class="wrapper">
-  <div class="control">
-    <label for="theme">テーマカラー</label>
-    <select id="theme">
-      <option value="#ff6b6b">Red</option>
-      <option value="#4ecdc4">Green</option>
-      <option value="#1a73e8">Blue</option>
-      <option value="#6c5ce7">Purple</option>
-      <option value="#f59f00">Orange</option>
-    </select>
-  </div>
-
-  <div class="preview" id="preview" data-color="#ff6b6b">
-    Theme Preview
-  </div>
+  <input type="range" min="0" max="100" value="50" />
+  <div class="bar" data-value="50"></div>
 </div>
 
 <script>
-  const select = document.querySelector("#theme");
-  const preview = document.querySelector("#preview");
+  const range = document.querySelector("input");
+  const bar = document.querySelector(".bar");
 
-  const syncPreview = () => {
-    const selectedOption = select.selectedOptions[0];
-    preview.dataset.color = selectedOption.getAttribute("value");
-  };
-
-  syncPreview();
-  select.addEventListener("change", syncPreview);
+  range.addEventListener("input", () => {
+    bar.setAttribute("data-value", range.value);
+  });
 </script>
 </body>
 </html>
